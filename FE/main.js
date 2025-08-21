@@ -122,6 +122,7 @@ function generateDropdown() {
 function closePreview() {
     previewCloseWindowBtn.addEventListener('click', () => {
         previewImg.setAttribute('src', '#');
+        previewImg.setAttribute('loading', 'lazy');
         preview.classList.add('hidden');
         previewHeaderProductName.innerText = '';
         overlay.classList.remove('active');
@@ -167,6 +168,7 @@ async function loadProducts(pageNumber = 1) {
             img.addEventListener('click', () => {
                 const productName = document.createTextNode(`ID: ${String(product.id).padStart(2,'0')}`);
                 previewImg.setAttribute('src', img.src);
+                previewImg.setAttribute('loading', 'lazy');
                 previewHeaderProductName.innerText = ''; // wyczyść przed dodaniem
                 previewHeaderProductName.appendChild(productName);
                 preview.classList.remove('hidden');
