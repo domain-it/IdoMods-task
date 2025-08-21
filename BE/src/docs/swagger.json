@@ -1,0 +1,142 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "IDoSell API",
+    "version": "0.0",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "description": "Get JWT Token for registered user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "description": "Refresh short JWT token",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/auth/user/register": {
+      "post": {
+        "description": "Register new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "example": "string"
+                },
+                "email": {
+                  "example": "string"
+                },
+                "password": {
+                  "example": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/auth/user/logout": {
+      "get": {
+        "description": "Logout and delete all JWT Tokens",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/orders/export": {
+      "get": {
+        "description": "Export Orders to csv file",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "minWorth",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "maxWorth",
+            "in": "query",
+            "type": "number"
+          },
+          {
+            "name": "orderId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "scheme": [
+    "http:"
+  ]
+}

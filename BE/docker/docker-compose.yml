@@ -1,0 +1,24 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    command: ["--auth", "--setParameter", "authenticationMechanisms=SCRAM-SHA-256"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DATABASE_DB}
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        PORT: ${PORT}
+    container_name: backend
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - mongo
